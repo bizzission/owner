@@ -16,7 +16,6 @@ abstract class BaseTest extends \Orchestra\Testbench\TestCase
 
         $this->artisan('migrate:fresh');
 
-
         $this->artisan('passport:install');
         config(['amethyst.user.entity' => config('amethyst.authentication.entity')]);
     }
