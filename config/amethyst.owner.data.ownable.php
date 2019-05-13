@@ -11,16 +11,4 @@ return [
     'authorizer' => Railken\Amethyst\Authorizers\OwnableAuthorizer::class,
     'faker'      => Railken\Amethyst\Fakers\OwnableFaker::class,
     'manager'    => Railken\Amethyst\Managers\OwnableManager::class,
-    'attributes' => [
-        'owner' => [
-            'options' => [
-                Railken\Amethyst\Models\Foo::class => Railken\Amethyst\Managers\FooManager::class,
-            ],
-        ],
-        'ownable' => [
-            'options' => [
-                Railken\Amethyst\Models\Foo::class => Railken\Amethyst\Managers\FooManager::class,
-            ],
-        ],
-    ],
 ];

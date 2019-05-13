@@ -16,28 +16,25 @@ class OwnableSchema extends Schema
      */
     public function getAttributes()
     {
-        $ownableConfig = Config::get('amethyst.owner.data.ownable.attributes.ownable.options');
-        $ownerConfig = Config::get('amethyst.owner.data.ownable.attributes.owner.options');
-
         return [
             Attributes\IdAttribute::make(),
             Attributes\TextAttribute::make('relation')
                 ->setDefault(function (EntityContract $entity) {
                     return 'default';
                 }),
-            Attributes\EnumAttribute::make('owner_type', array_keys($ownerConfig))
+            Attributes\EnumAttribute::make('owner_type', app('amethyst')->getMorphListable('ownable', 'owner'))
                 ->setRequired(true),
             Attributes\MorphToAttribute::make('owner_id')
                 ->setRelationKey('owner_type')
                 ->setRelationName('owner')
-                ->setRelations($ownerConfig)
+                ->setRelations(app('amethyst')->getMorphRelationable('ownable', 'owner'))
                 ->setRequired(true),
-            Attributes\EnumAttribute::make('ownable_type', array_keys($ownableConfig))
+            Attributes\EnumAttribute::make('ownable_type', app('amethyst')->getMorphListable('ownable', 'ownable'))
                 ->setRequired(true),
             Attributes\MorphToAttribute::make('ownable_id')
                 ->setRelationKey('ownable_type')
                 ->setRelationName('ownable')
-                ->setRelations($ownableConfig)
+                ->setRelations(app('amethyst')->getMorphRelationable('ownable', 'ownable'))
                 ->setRequired(true),
             Attributes\CreatedAtAttribute::make(),
             Attributes\UpdatedAtAttribute::make(),

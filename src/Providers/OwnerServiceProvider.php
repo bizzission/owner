@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
 use Railken\Amethyst\Common\CommonServiceProvider;
 use Railken\Amethyst\Models\Ownable;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class OwnerServiceProvider extends CommonServiceProvider
 {
@@ -44,5 +45,13 @@ class OwnerServiceProvider extends CommonServiceProvider
                 ]);
             });
         }
+
+        \Illuminate\Database\Eloquent\Builder::macro('ownables', function (): MorphMany {
+            return app('amethyst')->createMacroMorphRelation($this, config('amethyst.owner.data.ownable.model'), 'ownables', 'ownable');
+        });
+
+        \Illuminate\Database\Eloquent\Builder::macro('ownerables', function (): MorphMany {
+            return app('amethyst')->createMacroMorphRelation($this, config('amethyst.owner.data.ownable.model'), 'ownerables', 'owner');
+        });
     }
 }

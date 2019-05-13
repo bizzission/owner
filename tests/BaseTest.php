@@ -16,6 +16,10 @@ abstract class BaseTest extends \Orchestra\Testbench\TestCase
 
         $this->artisan('migrate:fresh');
 
+
+        app('amethyst')->pushMorphRelation('ownable', 'owner', 'foo');
+        app('amethyst')->pushMorphRelation('ownable', 'ownable', 'foo');
+
         $this->artisan('passport:install');
         config(['amethyst.user.entity' => config('amethyst.authentication.entity')]);
     }
