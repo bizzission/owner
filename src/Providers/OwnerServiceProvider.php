@@ -2,6 +2,7 @@
 
 namespace Railken\Amethyst\Providers;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
 use Railken\Amethyst\Common\CommonServiceProvider;
 use Railken\Amethyst\Models\Ownable;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class OwnerServiceProvider extends CommonServiceProvider
 {
