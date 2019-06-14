@@ -2,7 +2,6 @@
 
 namespace Railken\Amethyst\Providers;
 
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
