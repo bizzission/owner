@@ -2,16 +2,21 @@
 
 namespace Railken\Amethyst\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Railken\Amethyst\Common\ConfigurableModel;
 use Railken\Lem\Contracts\EntityContract;
 
-class Ownable extends Model implements EntityContract
+class Ownable extends MorphPivot implements EntityContract
 {
-    use SoftDeletes;
     use ConfigurableModel;
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
 
     /**
      * Create a new Eloquent model instance.
@@ -38,5 +43,31 @@ class Ownable extends Model implements EntityContract
     public function ownable(): MorphTo
     {
         return $this->morphTo();
+    }
+    
+    /**
+     * Delete the pivot model record from the database.
+     *
+     * @return int
+     */
+    public function delete()
+    {
+        $query = $this->getDeleteQuery();
+
+        if ($this->morphClass) {
+            $query->where($this->morphType, $this->morphClass);
+        }
+
+        return $query->delete();
+    }
+
+    /**
+     * Get the query builder for a delete operation on the pivot.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function getDeleteQuery()
+    {
+        return $this->id ? $this->newQuery()->where('id', $this->id) : parent::getDeleteQuery();
     }
 }
