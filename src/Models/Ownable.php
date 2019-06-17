@@ -44,7 +44,7 @@ class Ownable extends MorphPivot implements EntityContract
     {
         return $this->morphTo();
     }
-    
+
     /**
      * Delete the pivot model record from the database.
      *
