@@ -1,5 +1,5 @@
 {
-    "name": "railken/amethyst-owner",
+    "name": "amethyst/owner",
     "type": "library",
     "keywords": ["laravel", "amethyst", "amethyst-owner", "owner"],
     "license": "MIT",
@@ -9,17 +9,17 @@
     "require-dev": {
         "phpunit/phpunit": "~7.1",
         "orchestra/testbench": "3.*",
-        "railken/amethyst-authentication": "0.1.*",
-        "railken/amethyst-foo": "0.1.*"
+        "amethyst/authentication": "0.1.*",
+        "amethyst/foo": "0.1.*"
     },
     "autoload": {
         "psr-4" : {
-            "Railken\\Amethyst\\" : "src/"
+            "Amethyst\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": { 
-            "Railken\\Amethyst\\Tests\\": "tests/" 
+            "Amethyst\\Tests\\": "tests/" 
         }
     },
     "extra": {
@@ -29,7 +29,7 @@
         },
         "laravel": {
             "providers": [
-                "Railken\\Amethyst\\Providers\\OwnerServiceProvider"
+                "Amethyst\\Providers\\OwnerServiceProvider"
             ]
         }
     }

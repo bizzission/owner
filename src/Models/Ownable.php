@@ -1,10 +1,10 @@
 <?php
 
-namespace Railken\Amethyst\Models;
+namespace Amethyst\Models;
 
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Railken\Amethyst\Common\ConfigurableModel;
+use Amethyst\Common\ConfigurableModel;
 use Railken\Lem\Contracts\EntityContract;
 
 class Ownable extends MorphPivot implements EntityContract

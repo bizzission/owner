@@ -1,14 +1,14 @@
 <?php
 
-namespace Railken\Amethyst\Tests\Listeners;
+namespace Amethyst\Tests\Listeners;
 
 use Illuminate\Support\Facades\Auth;
-use Railken\Amethyst\Concerns\Auth\User;
-use Railken\Amethyst\Fakers\FooFaker;
-use Railken\Amethyst\Fakers\UserFaker;
-use Railken\Amethyst\Models\Foo;
-use Railken\Amethyst\Models\Ownable;
-use Railken\Amethyst\Tests\BaseTest;
+use Amethyst\Concerns\Auth\User;
+use Amethyst\Fakers\FooFaker;
+use Amethyst\Fakers\UserFaker;
+use Amethyst\Models\Foo;
+use Amethyst\Models\Ownable;
+use Amethyst\Tests\BaseTest;
 
 class ListenerTest extends BaseTest
 {

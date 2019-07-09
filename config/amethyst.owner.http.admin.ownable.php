@@ -2,7 +2,7 @@
 
 return [
     'enabled'    => true,
-    'controller' => Railken\Amethyst\Http\Controllers\Admin\OwnablesController::class,
+    'controller' => Amethyst\Http\Controllers\Admin\OwnablesController::class,
     'router'     => [
         'as'     => 'ownable.',
         'prefix' => '/ownables',

@@ -1,14 +1,14 @@
 <?php
 
-namespace Railken\Amethyst\Providers;
+namespace Amethyst\Providers;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
-use Railken\Amethyst\Common\CommonServiceProvider;
-use Railken\Amethyst\Models\Ownable;
+use Amethyst\Common\CommonServiceProvider;
+use Amethyst\Models\Ownable;
 
 class OwnerServiceProvider extends CommonServiceProvider
 {

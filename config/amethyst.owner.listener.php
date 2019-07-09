@@ -2,6 +2,6 @@
 
 return [
     'models' => [
-        Railken\Amethyst\Models\Foo::class,
+        Amethyst\Models\Foo::class,
     ],
 ];

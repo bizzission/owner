@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Fakers;
+namespace Amethyst\Fakers;
 
 use Faker\Factory;
 use Railken\Bag;
@@ -17,9 +17,9 @@ class OwnableFaker extends Faker
 
         $bag = new Bag();
         $bag->set('relation', 'faker');
-        $bag->set('owner_type', \Railken\Amethyst\Models\Foo::class);
+        $bag->set('owner_type', \Amethyst\Models\Foo::class);
         $bag->set('owner', FooFaker::make()->parameters()->toArray());
-        $bag->set('ownable_type', \Railken\Amethyst\Models\Foo::class);
+        $bag->set('ownable_type', \Amethyst\Models\Foo::class);
         $bag->set('ownable', FooFaker::make()->parameters()->toArray());
 
         return $bag;
