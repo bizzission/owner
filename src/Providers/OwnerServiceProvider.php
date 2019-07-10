@@ -2,13 +2,13 @@
 
 namespace Amethyst\Providers;
 
+use Amethyst\Common\CommonServiceProvider;
+use Amethyst\Models\Ownable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
-use Amethyst\Common\CommonServiceProvider;
-use Amethyst\Models\Ownable;
 
 class OwnerServiceProvider extends CommonServiceProvider
 {

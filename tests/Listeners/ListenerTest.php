@@ -2,13 +2,13 @@
 
 namespace Amethyst\Tests\Listeners;
 
-use Illuminate\Support\Facades\Auth;
 use Amethyst\Concerns\Auth\User;
 use Amethyst\Fakers\FooFaker;
 use Amethyst\Fakers\UserFaker;
 use Amethyst\Models\Foo;
 use Amethyst\Models\Ownable;
 use Amethyst\Tests\BaseTest;
+use Illuminate\Support\Facades\Auth;
 
 class ListenerTest extends BaseTest
 {
