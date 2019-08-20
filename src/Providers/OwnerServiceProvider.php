@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class OwnerServiceProvider extends CommonServiceProvider
 {
@@ -19,9 +20,17 @@ class OwnerServiceProvider extends CommonServiceProvider
     {
         parent::boot();
 
+        try {
+            DB::connection()->getPdo();
+        } catch (\Exception $e) {
+            return;
+        }
+
         if (Schema::hasTable(Config::get('amethyst.owner.data.ownable.table'))) {
             Event::listen(['eloquent.created: *'], function ($event_name, $events) {
-                if (!Auth::user()) {
+                $owner = Auth::user();
+
+                if (!$owner) {
                     return;
                 }
 
@@ -35,11 +44,14 @@ class OwnerServiceProvider extends CommonServiceProvider
                     return;
                 }
 
+                /** @var \StdClass */
+                $owner = Auth::user();
+
                 Ownable::create([
-                    'owner_type'   => get_class(Auth::user()),
-                    'owner_id'     => Auth::id(),
+                    'owner_type'   => app('amethyst')->tableize($owner),
+                    'owner_id'     => $owner->id,
                     'relation'     => 'author',
-                    'ownable_type' => get_class($model),
+                    'ownable_type' => app('amethyst')->tableize($model),
                     'ownable_id'   => $model->id,
                 ]);
             });

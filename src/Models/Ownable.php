@@ -48,7 +48,7 @@ class Ownable extends MorphPivot implements EntityContract
     /**
      * Delete the pivot model record from the database.
      *
-     * @return int
+     * @return bool|int
      */
     public function delete()
     {

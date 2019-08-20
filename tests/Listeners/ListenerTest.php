@@ -14,15 +14,19 @@ class ListenerTest extends BaseTest
 {
     public function testListener()
     {
-        $user = User::create(UserFaker::make()->parameters()->set('token', 'a')->toArray());
+        $user = User::create(UserFaker::make()->parameters()->toArray());
         Auth::login($user);
         $foo = Foo::create(FooFaker::make()->parameters()->toArray());
-        $this->assertEquals($foo->id, Ownable::where([
-            'owner_type'   => get_class($user),
+
+        /** @var \Amethyst\Models\Ownable */
+        $ownable = Ownable::where([
+            'owner_type'   => app('amethyst')->tableize($user),
             'owner_id'     => $user->id,
             'relation'     => 'author',
-            'ownable_type' => get_class($foo),
+            'ownable_type' => app('amethyst')->tableize($foo),
             'ownable_id'   => $foo->id,
-        ])->first()->ownable->id);
+        ])->first();
+
+        $this->assertEquals($foo->id, $ownable->ownable->id);
     }
 }
