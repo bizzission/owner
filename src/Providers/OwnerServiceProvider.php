@@ -28,24 +28,25 @@ class OwnerServiceProvider extends CommonServiceProvider
 
         if (Schema::hasTable(Config::get('amethyst.owner.data.ownable.table'))) {
             Event::listen(['eloquent.created: *'], function ($event_name, $events) {
-                $owner = Auth::user();
+                
 
-                if (!$owner) {
+                $class = explode(": ", $event_name)[1];
+
+                if ($class === Ownable::class) {
                     return;
                 }
 
                 $model = $events[0];
+                $owner = Auth::user();
 
-                $loggable = Collection::make(Config::get('amethyst.owner.listener.models'))->filter(function ($class) use ($model) {
-                    return is_object($model) && get_class($model) === $class || $model instanceof $class;
-                })->count();
-
-                if ($loggable === 0) {
-                    return;
+                if (!$owner) {
+                    $manager = app('amethyst')->newManagerByModel($class);
+                    $owner = $manager->getHistory($model->id);
                 }
 
-                /** @var \StdClass */
-                $owner = Auth::user();
+                if (!$owner) {
+                    return;
+                }
 
                 Ownable::create([
                     'owner_type'   => app('amethyst')->tableize($owner),
