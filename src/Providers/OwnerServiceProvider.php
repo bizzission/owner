@@ -37,11 +37,14 @@ class OwnerServiceProvider extends CommonServiceProvider
                 }
 
                 $model = $events[0];
-                $owner = Auth::user();
 
-                if (!$owner) {
+                $owner = null;
+                
+                try {
                     $manager = app('amethyst')->newManagerByModel($class);
                     $owner = $manager->getHistory($model->id);
+                } catch (\Exception $e) {
+
                 }
 
                 if (!$owner) {
