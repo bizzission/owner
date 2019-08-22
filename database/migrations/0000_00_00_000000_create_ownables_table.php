@@ -18,7 +18,7 @@ class CreateOwnablesTable extends Migration
             $table->integer('owner_id')->unsigned();
             $table->string('relation')->nullable();
             $table->string('ownable_type')->string();
-            $table->integer('ownable_id')->unsigned();
+            $table->string('ownable_id');
             $table->timestamps();
             $table->softDeletes();
         });
