@@ -52,8 +52,7 @@ class OwnerServiceProvider extends CommonServiceProvider
                     return;
                 }
 
-                [$eventType, $class] = explode(": ", $event_name);
-
+                [$eventType, $class] = explode(': ', $event_name);
 
                 $parameters = [
                     'owner_type'   => app('amethyst')->tableize($owner),
