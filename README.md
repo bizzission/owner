@@ -1,6 +1,6 @@
 # amethyst-owner
 
-[![Build Status](https://travis-ci.org/amethyst-php/owner.svg?branch=master)](https://travis-ci.org/amethyst-php/owner)
+[![Action Status](https://github.com/amethyst-php/owner/workflows/test/badge.svg)](https://github.com/amethyst-php/owner/actions)
 
 [Amethyst](https://github.com/amethyst-php/amethyst) package.
 

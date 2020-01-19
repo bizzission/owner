@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\User;
 
 class OwnerServiceProvider extends CommonServiceProvider
 {
@@ -17,12 +18,6 @@ class OwnerServiceProvider extends CommonServiceProvider
     public function boot()
     {
         parent::boot();
-
-        try {
-            DB::connection()->getPdo();
-        } catch (\Exception $e) {
-            return;
-        }
 
         app('amethyst')->getData()->map(function ($data, $key) {
             if ($key !== 'ownable') {
@@ -38,17 +33,10 @@ class OwnerServiceProvider extends CommonServiceProvider
                 if ($class === Ownable::class) {
                     return;
                 }
+                
+                $owner = \Auth::user();
 
-                $owner = null;
-
-                try {
-                    $manager = app('amethyst')->newManagerByModel($class);
-
-                    $owner = $manager->getHistory();
-                } catch (\Exception $e) {
-                }
-
-                if (!$owner || $owner instanceof \Railken\Lem\Agents\SystemAgent) {
+                if (!$owner) {
                     return;
                 }
 
