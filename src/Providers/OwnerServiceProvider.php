@@ -5,10 +5,8 @@ namespace Amethyst\Providers;
 use Amethyst\Core\Providers\CommonServiceProvider;
 use Amethyst\Models\Ownable;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\User;
 
 class OwnerServiceProvider extends CommonServiceProvider
 {
@@ -33,7 +31,7 @@ class OwnerServiceProvider extends CommonServiceProvider
                 if ($class === Ownable::class) {
                     return;
                 }
-                
+
                 $owner = \Auth::user();
 
                 if (!$owner) {
