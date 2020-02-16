@@ -17,12 +17,6 @@ class OwnerServiceProvider extends CommonServiceProvider
     {
         parent::boot();
 
-        app('amethyst')->getData()->map(function ($data, $key) {
-            if ($key !== 'ownable') {
-                app('amethyst')->pushMorphRelation('ownable', 'ownable', $key);
-            }
-        });
-
         if (Schema::hasTable(Config::get('amethyst.owner.data.ownable.table'))) {
             Event::listen(['eloquent.created: *', 'eloquent.deleted: *'], function ($event_name, $events) {
                 $model = $events[0];
