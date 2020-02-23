@@ -21,14 +21,14 @@ class OwnableSchema extends Schema
                 ->setDefault(function (EntityContract $entity) {
                     return 'default';
                 }),
-            Attributes\EnumAttribute::make('owner_type', app('amethyst')->getDataNames())
+            \Amethyst\Core\Attributes\DataNameAttribute::make('owner_type')
                 ->setRequired(true),
             Attributes\MorphToAttribute::make('owner_id')
                 ->setRelationKey('owner_type')
                 ->setRelationName('owner')
                 ->setRelations(app('amethyst')->getDataManagers())
                 ->setRequired(true),
-            Attributes\EnumAttribute::make('ownable_type', app('amethyst')->getDataNames())
+            \Amethyst\Core\Attributes\DataNameAttribute::make('ownable_type')
                 ->setRequired(true),
             Attributes\MorphToAttribute::make('ownable_id')
                 ->setRelationKey('ownable_type')
