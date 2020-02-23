@@ -27,7 +27,7 @@ class OwnerServiceProvider extends CommonServiceProvider
                 }
 
                 $owner = \Auth::user();
-                
+
                 if (!$owner || !$model->id || !$owner->id) {
                     return;
                 }
