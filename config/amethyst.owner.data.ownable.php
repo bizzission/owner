@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'table'      => 'amethyst_ownables',
+    'table'      => 'ownable',
     'comment'    => 'Ownable',
     'model'      => Amethyst\Models\Ownable::class,
     'schema'     => Amethyst\Schemas\OwnableSchema::class,
