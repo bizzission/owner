@@ -7,6 +7,7 @@ use Amethyst\Models\Ownable;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
+use Railken\EloquentMapper\Contracts\Map as MapContract;
 
 class OwnerServiceProvider extends CommonServiceProvider
 {
@@ -34,11 +35,13 @@ class OwnerServiceProvider extends CommonServiceProvider
 
                 [$eventType, $class] = explode(': ', $event_name);
 
+                $map = $this->app->make(MapContract::class);
+
                 $parameters = [
-                    'owner_type'   => app('amethyst')->tableize($owner),
+                    'owner_type'   => $map->modelToKey($owner),
                     'owner_id'     => $owner->id,
                     'relation'     => 'author',
-                    'ownable_type' => app('amethyst')->tableize($model),
+                    'ownable_type' => $map->modelToKey($model),
                     'ownable_id'   => $model->id,
                 ];
 
