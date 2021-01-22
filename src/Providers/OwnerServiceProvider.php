@@ -23,7 +23,7 @@ class OwnerServiceProvider extends CommonServiceProvider
                 $model = $events[0];
                 $class = get_class($model);
 
-                if ($class === Ownable::class) {
+                if ($class === Ownable::class || in_array($class, config('amethyst.owner.listener.unlist'))) {
                     return;
                 }
 
