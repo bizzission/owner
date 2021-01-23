@@ -1,0 +1,80 @@
+<?php
+
+namespace Amethyst\Traits;
+
+use Illuminate\Database\Eloquent\Model;
+
+trait HasOwner
+{
+    private function ownerModel()
+    {
+        return config('amethyst.owner.data.ownable.baseModel');
+    }
+
+    private function getOwnerRelation(Model $model)
+    {
+        return $this->owner()
+            ->where('owner_id', $model->id)->where('owner_type', get_class($model))
+            ->first();
+    }
+    /**
+     * Return a collection of all the model's owner.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function owner()
+    {
+        return $this->morphMany($this->ownerModel(), 'owner', 'ownable_type', 'ownable_id');
+    }
+
+    public function getOwner()
+    {
+        return $this->owner()
+            ->with('owner:id,name')->get()->pluck('owner');
+    }
+
+    /**
+     * Check if model is owned by another model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return boolean
+     */
+    public function isOwnedBy(Model $model)
+    {
+        return (bool) $this->getOwnerRelation($model);
+    }
+
+    /**
+     * Add an owner to a model
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return boolean
+     */
+    public function addOwner(Model $model, $relation = 'author')
+    {
+        // Check if relationship already exists
+        if (!$this->isOwnedBy($model)) {
+            return $this->ownerModel()::create([
+                'owner_id'      => $model->id,
+                'owner_type'    => get_class($model),
+                'relation'      => $relation,
+                'ownable_id'    => $this->id,
+                'ownable_type'  => get_class($this)
+            ]);
+        }
+
+        return true;
+    }
+
+    /**
+     * Remove an owner from a model
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return boolean
+     */
+    public function removeOwner(Model $model)
+    {
+        $this->getOwnerRelation($model)->delete();
+        return true;
+    }
+}
