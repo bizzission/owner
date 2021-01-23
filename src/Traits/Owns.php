@@ -2,6 +2,7 @@
 
 namespace Amethyst\Traits;
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 trait Owns
@@ -30,7 +31,23 @@ trait Owns
     public function getOwned()
     {
         return $this->owns()
-            ->with('ownable:id,name')
+            ->with('ownable')
+            ->get()->pluck('ownable');
+    }
+
+    public function getOwnedByType($class)
+    {
+        return $this->owns()
+            ->where('ownable_type', $class)
+            ->with('ownable')
+            ->get()->pluck('ownable');
+    }
+
+    public function getOwnedByRelation($relation = 'author')
+    {
+        return $this->owns()
+            ->where('relation', $relation)
+            ->with('ownable')
             ->get()->pluck('ownable');
     }
 
@@ -72,4 +89,6 @@ trait Owns
         $this->getOwnsRelation($model)->delete();
         return true;
     }
+
+    // TODO: remove all owned
 }

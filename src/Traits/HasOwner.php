@@ -17,6 +17,7 @@ trait HasOwner
             ->where('owner_id', $model->id)->where('owner_type', get_class($model))
             ->first();
     }
+
     /**
      * Return a collection of all the model's owner.
      *
@@ -30,7 +31,24 @@ trait HasOwner
     public function getOwner()
     {
         return $this->owner()
-            ->with('owner:id,name')->get()->pluck('owner');
+            ->with('owner:id,name')
+            ->get()->pluck('owner');
+    }
+
+    public function getOwnerByType($class)
+    {
+        return $this->owner()
+            ->where('owner_type', $class)
+            ->with('owner:id,name')
+            ->get()->pluck('owner');
+    }
+
+    public function getOwnerByRelation($relation = 'author')
+    {
+        return $this->owner()
+            ->where('relation', $relation)
+            ->with('owner:id,name')
+            ->get()->pluck('owner');
     }
 
     /**
@@ -77,4 +95,8 @@ trait HasOwner
         $this->getOwnerRelation($model)->delete();
         return true;
     }
+
+    // TODO: remove all owners
+    // TODO: replace owner for all, replace owner for model
+    // TODO: orphaned
 }
