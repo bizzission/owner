@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 trait HasOwner
 {
-    private function ownerModel()
+    // you cannot use the Ownable model if the other models are not managed by a railken manager
+
+    private function ownerBaseModel()
     {
         return config('amethyst.owner.data.ownable.baseModel');
     }
@@ -25,7 +27,7 @@ trait HasOwner
      */
     public function owner()
     {
-        return $this->morphMany($this->ownerModel(), 'owner', 'ownable_type', 'ownable_id');
+        return $this->morphMany($this->ownerBaseModel(), 'owner', 'ownable_type', 'ownable_id');
     }
 
     public function getOwner()
@@ -72,7 +74,7 @@ trait HasOwner
     {
         // Check if relationship already exists
         if (!$this->isOwnedBy($model)) {
-            return $this->ownerModel()::create([
+            return $this->ownerBaseModel()::create([
                 'owner_id'      => $model->id,
                 'owner_type'    => get_class($model),
                 'relation'      => $relation,
